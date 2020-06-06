@@ -1,0 +1,17 @@
+yum install bind bind-utils -y
+cd /etc/named
+vim /etc/named.conf
+vim /etc/named/rfc1912.zones
+cd /var/named
+cp -p named.localhost forwardzone
+cp -p named.loopback reversezone
+vim forwardzone
+vim reversezone
+
+to verify…use
+named-checkconf
+named-checkzone forwardzone /var/named/forwardzone
+named-checkzone reversezone /var/named/reversezone
+vim /etc/resolv.conf
+systemctl restart named
+ping dns.johnlord.comm
